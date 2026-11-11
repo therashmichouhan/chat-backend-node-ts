@@ -1,0 +1,10 @@
+rules_version = '2';
+// Only this backend (Admin SDK, which bypasses rules) touches Firestore.
+// Deny every direct client access.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
